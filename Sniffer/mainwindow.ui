@@ -122,6 +122,8 @@
         <property name="font">
          <font>
           <pointsize>12</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="editTriggers">
@@ -134,7 +136,7 @@
          <enum>QAbstractItemView::SelectRows</enum>
         </property>
         <attribute name="horizontalHeaderMinimumSectionSize">
-         <number>75</number>
+         <number>80</number>
         </attribute>
         <attribute name="horizontalHeaderDefaultSectionSize">
          <number>150</number>
