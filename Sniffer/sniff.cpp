@@ -17,7 +17,7 @@ Sniff::Sniff(QObject *parent) :
 void Sniff::run()
 {
     char databuf[2048];
-    QString information;
+    QString* information;
     int i=0;
     while(1){
         if(state == START){
@@ -73,22 +73,25 @@ void Sniff::run()
                     udpheader->check_sum = (udpheader->check_sum>>8) + (udpheader->check_sum<<8);
            }
 
-           //显示 协议类型 源ip 目的ip
-           information.append(QString("%1: %2.%3.%4.%5->").arg(getProtocol(ipheader->protocol))
-                       .arg(QString::number((int)ipheader->source_ip[0]))
-                       .arg(QString::number((int)ipheader->source_ip[1]))
-                       .arg(QString::number((int)ipheader->source_ip[2]))
-                       .arg(QString::number((int)ipheader->source_ip[3])));
-           information.append(QString("%1.%2.%3.%4").arg(QString::number((int)ipheader->dest_ip[0]))
+           information = new QString[5];
+
+           //序号 协议类型 源ip 目的ip 时间
+           information[0] = QString("#%1").arg(QString::number(i+1));
+           information[1] = getProtocol(ipheader->protocol);
+           information[2] = QString("%1.%2.%3.%4").arg(QString::number((int)ipheader->source_ip[0]))
+                   .arg(QString::number((int)ipheader->source_ip[1]))
+                   .arg(QString::number((int)ipheader->source_ip[2]))
+                   .arg(QString::number((int)ipheader->source_ip[3]));
+
+           information[3] = QString("%1.%2.%3.%4").arg(QString::number((int)ipheader->dest_ip[0]))
                        .arg(QString::number((int)ipheader->dest_ip[1]))
                        .arg(QString::number((int)ipheader->dest_ip[2]))
-                       .arg(QString::number((int)ipheader->dest_ip[3])));
+                       .arg(QString::number((int)ipheader->dest_ip[3]));
 
-           //显示时间
-           information.append(QString("\t  (%1)").arg(current_date));
+           information[4] = current_date;
+
            //显示
            emit newtext(information);
-           information.clear();
            i++;
 
            //超最大抓取数，清0

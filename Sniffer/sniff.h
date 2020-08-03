@@ -88,7 +88,7 @@ public:
 
 signals:
     void listclear();
-    void newtext(QString s);
+    void newtext(QString* s);
 
 private slots:
     void setFilter(int i);

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.12.4, 2020-08-04T02:51:25. -->
+<!-- Written by QtCreator 4.12.4, 2020-08-01T21:44:20. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
-  <value type="QByteArray">{c4b4f94e-6aca-4f56-9766-1071d50d6c1f}</value>
+  <value type="QByteArray">{87bd6f79-3d17-47b2-b3a7-9b6399fc4278}</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -81,8 +81,8 @@
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.0">
     <value type="bool">true</value>
     <value type="int" key="EnableQmlDebugging">0</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/charles/NetworkPacketSniffer/build-Sniffer-Desktop_Qt_5_15_0_GCC_64bit-Debug</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">/home/charles/NetworkPacketSniffer/build-Sniffer-Desktop_Qt_5_15_0_GCC_64bit-Debug</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/charles/build-Sniffer-Desktop_Qt_5_15_0_GCC_64bit-Debug</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">/home/charles/build-Sniffer-Desktop_Qt_5_15_0_GCC_64bit-Debug</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -132,8 +132,8 @@
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.1">
     <value type="bool">true</value>
     <value type="int" key="EnableQmlDebugging">2</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/charles/NetworkPacketSniffer/build-Sniffer-Desktop_Qt_5_15_0_GCC_64bit-Release</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">/home/charles/NetworkPacketSniffer/build-Sniffer-Desktop_Qt_5_15_0_GCC_64bit-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/charles/build-Sniffer-Desktop_Qt_5_15_0_GCC_64bit-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">/home/charles/build-Sniffer-Desktop_Qt_5_15_0_GCC_64bit-Release</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -183,8 +183,8 @@
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.2">
     <value type="bool">true</value>
     <value type="int" key="EnableQmlDebugging">0</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/charles/NetworkPacketSniffer/build-Sniffer-Desktop_Qt_5_15_0_GCC_64bit-Profile</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">/home/charles/NetworkPacketSniffer/build-Sniffer-Desktop_Qt_5_15_0_GCC_64bit-Profile</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/charles/build-Sniffer-Desktop_Qt_5_15_0_GCC_64bit-Profile</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">/home/charles/build-Sniffer-Desktop_Qt_5_15_0_GCC_64bit-Profile</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -306,8 +306,8 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/charles/NetworkPacketSniffer/Sniffer/Sniffer.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/charles/NetworkPacketSniffer/Sniffer/Sniffer.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/charles/Sniffer/Sniffer.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/charles/Sniffer/Sniffer.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -318,7 +318,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/charles/NetworkPacketSniffer/build-Sniffer-Desktop_Qt_5_15_0_GCC_64bit-Debug</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/charles/build-Sniffer-Desktop_Qt_5_15_0_GCC_64bit-Debug</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

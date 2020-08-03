@@ -24,9 +24,10 @@ public:
 private slots:
     void on_pushButton_start_clicked();
     void on_pushButton_pause_clicked();
-    void on_listWidget_list_clicked(const QModelIndex &index);
-    void text_add(QString s);
+    void on_tableWidget_list_clicked(const QModelIndex &index);
+    void text_add(QString* s);
     void clear_the_list();
+
 
 private:
     Ui::MainWindow *ui;

@@ -6,9 +6,15 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow){
     ui->setupUi(this);
     this->ui->pushButton_pause->setDisabled(true);
+    this->ui->tableWidget_list->setVerticalScrollMode(QListWidget::ScrollPerPixel);
+    this->ui->listWidget_detail->setVerticalScrollMode(QListWidget::ScrollPerPixel);
+    ui->tableWidget_list->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+    ui->tableWidget_list->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+    ui->tableWidget_list->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+    ui->tableWidget_list->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Stretch);
     sniff_thread = new Sniff();
     connect(this->ui->comboBox_filter,SIGNAL(currentIndexChanged(int)),sniff_thread,SLOT(setFilter(int)));
-    connect(sniff_thread,SIGNAL(newtext(QString)),this,SLOT(text_add(QString)));
+    connect(sniff_thread,SIGNAL(newtext(QString*)),this,SLOT(text_add(QString*)));
     connect(sniff_thread,SIGNAL(listclear()),this,SLOT(clear_the_list()));
     sniff_thread->start();    //启动抓包线程
 }
@@ -18,13 +24,22 @@ MainWindow::~MainWindow(){
     delete ui;
 }
 
-void MainWindow::text_add(QString s){
-    this->ui->listWidget_list->addItem(s);
-    this->ui->listWidget_list->scrollToBottom();
+void MainWindow::text_add(QString* s){
+    int c = this->ui->tableWidget_list->rowCount();
+    this->ui->tableWidget_list->insertRow(c);
+    this->ui->tableWidget_list->setItem(c,0,new QTableWidgetItem(s[0]));
+    this->ui->tableWidget_list->setItem(c,1,new QTableWidgetItem(s[1]));
+    this->ui->tableWidget_list->setItem(c,2,new QTableWidgetItem(s[2]));
+    this->ui->tableWidget_list->setItem(c,3,new QTableWidgetItem(s[3]));
+    this->ui->tableWidget_list->setItem(c,4,new QTableWidgetItem(s[4]));
+    this->ui->tableWidget_list->scrollToBottom();
+    delete [] s;
+
 }
 
 void MainWindow::clear_the_list(){
-    this->ui->listWidget_list->clear();
+    ui->tableWidget_list->setRowCount(0);
+    ui->tableWidget_list->clearContents();
 }
 
 //开始
@@ -43,7 +58,8 @@ void MainWindow::on_pushButton_pause_clicked(){
     this->ui->label_title->setText("Paused");
 }
 
-void MainWindow::on_listWidget_list_clicked(const QModelIndex &index){
+void MainWindow::on_tableWidget_list_clicked(const QModelIndex &index)
+{
     int i = index.row();
     ui->listWidget_detail->clear();
     char *p = sniff_thread->data_list[i];
@@ -64,6 +80,7 @@ void MainWindow::on_listWidget_list_clicked(const QModelIndex &index){
     default:
         break;
     }
+
 }
 
 void MainWindow::showMac(MacHeader *mheader){
@@ -253,4 +270,5 @@ void MainWindow::showUdp(UdpHeader *udpheader){
     temp.clear();
 
 }
+
 
