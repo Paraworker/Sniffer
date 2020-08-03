@@ -12,6 +12,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableWidget_list->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
     ui->tableWidget_list->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
     ui->tableWidget_list->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Stretch);
+    ui->tableWidget_list->setShowGrid(false);
+    ui->tableWidget_list->setStyleSheet("QTableWidget::Item{border:0px;"
+                                        "border-bottom:1px solid rgb(230,230,230);}");
+
     sniff_thread = new Sniff();
     connect(this->ui->comboBox_filter,SIGNAL(currentIndexChanged(int)),sniff_thread,SLOT(setFilter(int)));
     connect(sniff_thread,SIGNAL(newtext(QString*)),this,SLOT(text_add(QString*)));
