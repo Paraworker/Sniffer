@@ -76,7 +76,7 @@ void Sniff::run()
            information = new QString[5];
 
            //序号 协议类型 源ip 目的ip 时间
-           information[0] = QString("#%1").arg(QString::number(i+1));
+           information[0] = QString::number(i+1);
            information[1] = getProtocol(ipheader->protocol);
            information[2] = QString("%1.%2.%3.%4").arg(QString::number((int)ipheader->source_ip[0]))
                    .arg(QString::number((int)ipheader->source_ip[1]))
