@@ -32,5 +32,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Sniff *sniff_thread;
+    QString eth;
+    void init_eth();
 };
 #endif // MAINWINDOW_H

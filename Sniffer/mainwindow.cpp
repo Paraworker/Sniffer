@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include"initwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -19,8 +20,9 @@ MainWindow::MainWindow(QWidget *parent)
     sniff_thread = new Sniff();
     connect(this->ui->comboBox_filter,SIGNAL(currentIndexChanged(int)),sniff_thread,SLOT(setFilter(int)));
     connect(sniff_thread,SIGNAL(newtext(QString*)),this,SLOT(text_add(QString*)));
-    connect(sniff_thread,SIGNAL(listclear()),this,SLOT(clear_the_list()));
-    sniff_thread->start();    //启动抓包线程
+    connect(sniff_thread,SIGNAL(listclear()),this,SLOT(clear_the_list())); //启动抓包线程
+    init_eth();
+    sniff_thread->start();
 }
 
 MainWindow::~MainWindow(){
@@ -44,6 +46,17 @@ void MainWindow::text_add(QString* s){
 void MainWindow::clear_the_list(){
     ui->tableWidget_list->setRowCount(0);
     ui->tableWidget_list->clearContents();
+}
+
+void MainWindow::init_eth(){
+    InitWindow initwindow;
+    initwindow.set_eth_pointer(&eth);
+    initwindow.combobox_add(sniff_thread->get_eth_list());
+    initwindow.show();
+    initwindow.exec();
+    sniff_thread->create_sock();
+    sniff_thread->bind_eth(eth);
+    sniff_thread->set_promisc(eth);
 }
 
 //开始

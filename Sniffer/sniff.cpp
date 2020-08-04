@@ -1,15 +1,9 @@
 #include "sniff.h"
 
+
 Sniff::Sniff(QObject *parent) :
     QThread(parent)
 {
-    sock = socket(PF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
-    //设置网卡为混杂模式
-    strncpy(ethreq.ifr_name,"eth0",IFNAMSIZ);
-    ioctl(sock,SIOCGIFFLAGS,&ethreq);
-    ethreq.ifr_flags|=IFF_PROMISC;
-    ioctl(sock,SIOCSIFFLAGS,&ethreq);
-
     state = STOP;
     filter = ALL;
 }
@@ -142,4 +136,53 @@ void Sniff::setFilter(int i){
     case 3:
         filter = UDP; break;
     }
+}
+
+    //设置网卡为混杂模式
+void Sniff::set_promisc(QString _eth){
+    const char* eth_name = _eth.toStdString().c_str();
+    strcpy(ifr.ifr_name, eth_name);
+    ioctl(sock, SIOCGIFFLAGS, &ifr);
+    ifr.ifr_flags |= IFF_PROMISC;
+    ioctl(sock, SIOCSIFFLAGS, &ifr);
+}
+
+    //接口绑定
+void Sniff::bind_eth(QString _eth){
+    const char* eth_name = _eth.toStdString().c_str();
+
+    struct ifreq ifr_re;    // ifreq结构用于获取接口信息
+    strncpy(ifr_re.ifr_name, eth_name, IFNAMSIZ);
+    // 获取指定网卡接口的INDEX
+    ioctl(sock, SIOCGIFINDEX, (char*)&ifr_re);
+
+    struct sockaddr_ll RawHWAddr;
+    memset(&RawHWAddr, 0, sizeof(RawHWAddr));
+    RawHWAddr.sll_ifindex   = ifr_re.ifr_ifindex;
+    RawHWAddr.sll_family    = AF_PACKET;
+    RawHWAddr.sll_protocol  = htons(ETH_P_ALL);
+    RawHWAddr.sll_hatype    = 0;
+    RawHWAddr.sll_pkttype   = PACKET_HOST;
+    RawHWAddr.sll_halen     = ETH_ALEN;
+
+    bind(sock, (struct sockaddr*)&RawHWAddr, sizeof(RawHWAddr));
+}
+
+    //获取接口列表
+std::vector<QString> Sniff::get_eth_list(){
+    struct ifaddrs *ifa = NULL, *ifList;
+    std::vector<QString> s;
+    getifaddrs(&ifList);
+
+    for (ifa = ifList; ifa != NULL; ifa = ifa->ifa_next){
+        if(ifa->ifa_addr->sa_family == PF_PACKET){
+            s.push_back(ifa->ifa_name);
+        }
+    }
+    freeifaddrs(ifList);
+    return s;
+}
+
+void Sniff::create_sock(){
+    sock = socket(PF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
 }

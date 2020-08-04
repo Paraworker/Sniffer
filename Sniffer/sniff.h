@@ -10,6 +10,10 @@
 #include <sys/ioctl.h>
 #include <net/if.h>
 #include <arpa/inet.h>
+#include<sys/types.h>
+#include<ifaddrs.h>
+#include<unistd.h>
+#include <netpacket/packet.h>
 
 #define START 1
 #define STOP  0
@@ -84,6 +88,10 @@ public:
     void startsniff();
     void pausesniff();
     char data_list[MAXDATALIST][2048];
+    void set_promisc(QString _eth);
+    void bind_eth(QString _eth);
+    void create_sock();
+    std::vector<QString> get_eth_list();
     QString getProtocol(int protocol);
 
 signals:
@@ -97,7 +105,7 @@ private slots:
 
 private:
     int sock;
-    struct ifreq ethreq;
+    struct ifreq ifr;
     struct MacHeader *mheader;
     struct IpHeader *ipheader;
     int state;
