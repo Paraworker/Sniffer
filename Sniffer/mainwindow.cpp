@@ -20,9 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     sniff_thread = new Sniff();
     connect(this->ui->comboBox_filter,SIGNAL(currentIndexChanged(int)),sniff_thread,SLOT(setFilter(int)));
     connect(sniff_thread,SIGNAL(newtext(QString*)),this,SLOT(text_add(QString*)));
-    connect(sniff_thread,SIGNAL(listclear()),this,SLOT(clear_the_list())); //启动抓包线程
-    init_eth();
-    sniff_thread->start();
+    connect(sniff_thread,SIGNAL(listclear()),this,SLOT(clear_the_list()));
 }
 
 MainWindow::~MainWindow(){
@@ -48,15 +46,13 @@ void MainWindow::clear_the_list(){
     ui->tableWidget_list->clearContents();
 }
 
-void MainWindow::init_eth(){
+void MainWindow::select_interface(){
     InitWindow initwindow;
-    initwindow.set_eth_pointer(&eth);
+    initwindow.set_pointer(&eth,sniff_thread);
     initwindow.combobox_add(sniff_thread->get_eth_list());
-    initwindow.show();
     initwindow.exec();
-    sniff_thread->create_sock();
-    sniff_thread->bind_eth(eth);
-    sniff_thread->set_promisc(eth);
+    this->setWindowTitle("Sniffer for " + eth);
+    this->ui->label_title->setText("Sniffer for " + eth);
 }
 
 //开始

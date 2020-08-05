@@ -183,6 +183,9 @@ std::vector<QString> Sniff::get_eth_list(){
     return s;
 }
 
-void Sniff::create_sock(){
+void Sniff::eth_setup(QString s){
     sock = socket(PF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
+    bind_eth(s);
+    set_promisc(s);
+    start();
 }

@@ -1,5 +1,6 @@
 #include "initwindow.h"
 #include "ui_initwindow.h"
+#include "sniff.h"
 
 InitWindow::InitWindow(QWidget *parent) :
     QDialog(parent),
@@ -22,12 +23,15 @@ void InitWindow::combobox_add(std::vector<QString> list){
     }
 }
 
-void InitWindow::set_eth_pointer(QString *s){
+void InitWindow::set_pointer(QString *s,Sniff* sn){
     eth = s;
+    sniff = sn;
 }
 
 void InitWindow::closeEvent(QCloseEvent *event){
-    *eth = this->ui->comboBox->currentText();
+    QString s = this->ui->comboBox->currentText();
+    *eth = s;
+    sniff->eth_setup(s);
     event->accept();
 }
 

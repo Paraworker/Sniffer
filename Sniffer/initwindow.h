@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QCloseEvent>
+#include "sniff.h"
 
 namespace Ui {
 class InitWindow;
@@ -15,7 +16,7 @@ class InitWindow : public QDialog
 public:
     explicit InitWindow(QWidget *parent = nullptr);
     void combobox_add(std::vector<QString> list);
-    void set_eth_pointer(QString* s);
+    void set_pointer(QString* s,Sniff* sn);
     ~InitWindow();
 
 private slots:
@@ -24,6 +25,7 @@ private slots:
 private:
     Ui::InitWindow *ui;
     QString* eth;
+    Sniff* sniff;
     void closeEvent( QCloseEvent * event);
 };
 

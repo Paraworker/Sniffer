@@ -20,6 +20,7 @@ public:
     void showIcmp(IcmpHeader *icmpheader);
     void showTcp(struct TcpHeader *tcpheader);
     void showUdp(struct UdpHeader *udpheader);
+    void select_interface();
 
 private slots:
     void on_pushButton_start_clicked();
@@ -33,6 +34,5 @@ private:
     Ui::MainWindow *ui;
     Sniff *sniff_thread;
     QString eth;
-    void init_eth();
 };
 #endif // MAINWINDOW_H
