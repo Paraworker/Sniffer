@@ -8,12 +8,17 @@ Sniff::Sniff(QObject *parent) :
     filter = ALL;
 }
 
+Sniff::~Sniff(){
+    requestInterruption();
+    wait();
+}
+
 void Sniff::run()
 {
     char databuf[2048];
     QString* information;
     int i=0;
-    while(1){
+    while(! isInterruptionRequested() ){
         if(state == START){
            bzero(databuf,2048);
            //开始抓包

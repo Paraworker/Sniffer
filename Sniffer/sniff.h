@@ -84,6 +84,7 @@ class Sniff : public QThread{
     Q_OBJECT
 public:
     explicit Sniff(QObject *parent = 0);
+    ~Sniff();
     void run();
     void startsniff();
     void pausesniff();
