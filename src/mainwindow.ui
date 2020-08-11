@@ -119,13 +119,6 @@
       </item>
       <item>
        <widget class="QTableWidget" name="tableWidget_list">
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
         <property name="editTriggers">
          <set>QAbstractItemView::NoEditTriggers</set>
         </property>
