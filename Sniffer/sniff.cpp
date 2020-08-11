@@ -9,8 +9,10 @@ Sniff::Sniff(QObject *parent) :
 }
 
 Sniff::~Sniff(){
+    if(this->isRunning()){
     requestInterruption();
     wait();
+    }
 }
 
 void Sniff::run()
