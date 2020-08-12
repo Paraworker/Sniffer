@@ -130,6 +130,9 @@ QString Sniff::getProtocol(int protocol){
 //开始抓包
 void Sniff::startsniff(){
     state = START;
+    if(!this->isRunning()){
+        this->start();
+    }
 }
 //停止抓包
 void Sniff::pausesniff(){
@@ -200,5 +203,4 @@ void Sniff::eth_setup(QString s){
     *sock = socket(PF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
     bind_eth(s);
     set_promisc(s);
-    start();
 }
