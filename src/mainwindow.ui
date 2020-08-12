@@ -195,13 +195,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QListWidget" name="listWidget_detail">
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-       </widget>
+       <widget class="QListWidget" name="listWidget_detail"/>
       </item>
      </layout>
     </item>
