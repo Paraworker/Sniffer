@@ -103,7 +103,7 @@ private slots:
 
 
 private:
-    int sock;
+    int* sock;
     struct ifreq ifr;
     struct MacHeader *mheader;
     struct IpHeader *ipheader;
