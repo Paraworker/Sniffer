@@ -201,6 +201,8 @@ std::vector<QString> Sniff::get_eth_list(){
 void Sniff::eth_setup(QString s){
     sock = new int;
     *sock = socket(PF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
+    timeval tv = {3, 0};
+    setsockopt(*sock, SOL_SOCKET, SO_RCVTIMEO, (char*)&tv, sizeof(timeval));        //设置阻塞超时3秒
     bind_eth(s);
     set_promisc(s);
 }
