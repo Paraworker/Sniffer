@@ -6,6 +6,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setApplicationName("Network Packet Sniffer");
     QFont font  = a.font();
     font.setPointSize(12);
     a.setFont(font);
