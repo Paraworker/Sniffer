@@ -4,7 +4,7 @@
 Sniff::Sniff(QObject *parent) :
     QThread(parent)
 {
-    sock = nullptr;
+    sock = -1;
     state = STOP;
     filter = ALL;
 }
@@ -14,9 +14,8 @@ Sniff::~Sniff(){
     requestInterruption();
     wait();
     }
-    if(sock != nullptr){
-        close(*sock);
-        delete sock;
+    if(sock != -1){
+        close(sock);
     }
 }
 
@@ -29,7 +28,7 @@ void Sniff::run()
         if(state == START){
            bzero(databuf,2048);
            //开始抓包
-           recvfrom(*sock,databuf,2048,0,NULL,NULL);
+           recvfrom(sock,databuf,2048,0,NULL,NULL);
            //获当前时间
            QDateTime current_date_time = QDateTime::currentDateTime();
            QString current_date = current_date_time.toString(" hh:mm:ss yyyy-MM-dd");
@@ -157,9 +156,9 @@ void Sniff::setFilter(int i){
 void Sniff::set_promisc(QString _eth){
     const char* eth_name = _eth.toStdString().c_str();
     strcpy(ifr.ifr_name, eth_name);
-    ioctl(*sock, SIOCGIFFLAGS, &ifr);
+    ioctl(sock, SIOCGIFFLAGS, &ifr);
     ifr.ifr_flags |= IFF_PROMISC;
-    ioctl(*sock, SIOCSIFFLAGS, &ifr);
+    ioctl(sock, SIOCSIFFLAGS, &ifr);
 }
 
     //接口绑定
@@ -169,7 +168,7 @@ void Sniff::bind_eth(QString _eth){
     struct ifreq ifr_re;    // ifreq结构用于获取接口信息
     strncpy(ifr_re.ifr_name, eth_name, IFNAMSIZ);
     // 获取指定网卡接口的INDEX
-    ioctl(*sock, SIOCGIFINDEX, (char*)&ifr_re);
+    ioctl(sock, SIOCGIFINDEX, (char*)&ifr_re);
 
     struct sockaddr_ll RawHWAddr;
     memset(&RawHWAddr, 0, sizeof(RawHWAddr));
@@ -180,7 +179,7 @@ void Sniff::bind_eth(QString _eth){
     RawHWAddr.sll_pkttype   = PACKET_HOST;
     RawHWAddr.sll_halen     = ETH_ALEN;
 
-    bind(*sock, (struct sockaddr*)&RawHWAddr, sizeof(RawHWAddr));
+    bind(sock, (struct sockaddr*)&RawHWAddr, sizeof(RawHWAddr));
 }
 
     //获取接口列表
@@ -199,10 +198,9 @@ std::vector<QString> Sniff::get_eth_list(){
 }
 
 void Sniff::eth_setup(QString s){
-    sock = new int;
-    *sock = socket(PF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
+    sock = socket(PF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
     timeval tv = {3, 0};
-    setsockopt(*sock, SOL_SOCKET, SO_RCVTIMEO, (char*)&tv, sizeof(timeval));        //设置阻塞超时3秒
+    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (char*)&tv, sizeof(timeval));        //设置阻塞超时3秒
     bind_eth(s);
     set_promisc(s);
 }
