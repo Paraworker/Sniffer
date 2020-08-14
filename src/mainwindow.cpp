@@ -76,6 +76,10 @@ void MainWindow::on_tableWidget_list_clicked(const QModelIndex &index)
     int i = index.row();
     ui->listWidget_detail->clear();
     char *p = sniff_thread->data_list[i];
+    this->ui->listWidget_detail->addItem(QString("No.%1 (%2)")
+                                         .arg(this->ui->tableWidget_list->item(i,0)->text())
+                                         .arg(this->ui->tableWidget_list->item(i,4)->text()));
+    this->ui->listWidget_detail->addItem("");
     showMac((struct MacHeader *) p);
     struct IpHeader *ipheader = (struct IpHeader *)( p + 14);
     showIP(ipheader);
