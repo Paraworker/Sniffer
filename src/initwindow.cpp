@@ -3,7 +3,7 @@
 #include "sniff.h"
 
 InitWindow::InitWindow(QWidget *parent) :
-    QDialog(parent),
+    QDialog(parent,Qt::WindowTitleHint | Qt::CustomizeWindowHint),
     ui(new Ui::InitWindow)
 {
     ui->setupUi(this);
