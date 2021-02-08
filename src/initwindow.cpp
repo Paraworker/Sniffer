@@ -4,13 +4,11 @@
 
 InitWindow::InitWindow(QWidget *parent) :
     QDialog(parent,Qt::WindowTitleHint | Qt::CustomizeWindowHint),
-    ui(new Ui::InitWindow)
-{
+    ui(new Ui::InitWindow){
     ui->setupUi(this);
 }
 
-InitWindow::~InitWindow()
-{
+InitWindow::~InitWindow(){
     delete ui;
 }
 
@@ -31,11 +29,10 @@ void InitWindow::set_pointer(QString *s,Sniff* sn){
 void InitWindow::closeEvent(QCloseEvent *event){
     QString s = this->ui->comboBox->currentText();
     *eth = s;
-    sniff->eth_setup(s);
+    sniff->eth_setup(s.toStdString());
     event->accept();
 }
 
-void InitWindow::on_pushButton_clicked()
-{
+void InitWindow::on_pushButton_clicked(){
     this->close();
 }

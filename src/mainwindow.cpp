@@ -4,7 +4,8 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow),button_state(0){
+    , ui(new Ui::MainWindow)
+    , button_state(0){
     ui->setupUi(this);
     this->ui->tableWidget_list->setVerticalScrollMode(QListWidget::ScrollPerPixel);
     this->ui->listWidget_detail->setVerticalScrollMode(QListWidget::ScrollPerPixel);
@@ -61,7 +62,6 @@ void MainWindow::on_pushButton_start_pause_clicked(){
         sniff_thread->startsniff();
         this->ui->label_title->setText("Sniffing...");
         this->ui->pushButton_start_pause->setText("暂停");
-
     }else {
         button_state = 0;
         sniff_thread->pausesniff();
@@ -76,8 +76,8 @@ void MainWindow::on_tableWidget_list_clicked(const QModelIndex &index)
     ui->listWidget_detail->clear();
     char *p = sniff_thread->data_list[i];
     this->ui->listWidget_detail->addItem(QString("No.%1 (%2)")
-                                         .arg(this->ui->tableWidget_list->item(i,0)->text())
-                                         .arg(this->ui->tableWidget_list->item(i,4)->text()));
+                                         .arg(this->ui->tableWidget_list->item(i,0)->text()
+                                         , this->ui->tableWidget_list->item(i,4)->text()));
     this->ui->listWidget_detail->addItem("");
     showMac((struct MacHeader *) p);
     struct IpHeader *ipheader = (struct IpHeader *)( p + 14);
@@ -103,21 +103,21 @@ void MainWindow::showMac(MacHeader *mheader){
     QString temp;
     ui->listWidget_detail->addItem("[MAC Header]");
     temp.append(QString("源 MAC 地址: %1-%2-%3-%4-%5-%6")
-                .arg(QString::number((int)(mheader->source_adr[0]),16))
-                .arg(QString::number((int)(mheader->source_adr[1]),16))
-                .arg(QString::number((int)(mheader->source_adr[2]),16))
-                .arg(QString::number((int)(mheader->source_adr[3]),16))
-                .arg(QString::number((int)(mheader->source_adr[4]),16))
-                .arg(QString::number((int)(mheader->source_adr[5]),16)));
+                .arg(QString::number((int)(mheader->source_adr[0]),16)
+                , QString::number((int)(mheader->source_adr[1]),16)
+                , QString::number((int)(mheader->source_adr[2]),16)
+                , QString::number((int)(mheader->source_adr[3]),16)
+                , QString::number((int)(mheader->source_adr[4]),16)
+                , QString::number((int)(mheader->source_adr[5]),16)));
     ui->listWidget_detail->addItem(temp);
     temp.clear();
     temp.append(QString("目的MAC地址: %1-%2-%3-%4-%5-%6")
-                .arg(QString::number((int)mheader->dest_adr[0],16))
-                .arg(QString::number((int)mheader->dest_adr[1],16))
-                .arg(QString::number((int)mheader->dest_adr[2],16))
-                .arg(QString::number((int)mheader->dest_adr[3],16))
-                .arg(QString::number((int)mheader->dest_adr[4],16))
-                .arg(QString::number((int)mheader->dest_adr[5],16)));
+                .arg(QString::number((int)mheader->dest_adr[0],16)
+                , QString::number((int)mheader->dest_adr[1],16)
+                , QString::number((int)mheader->dest_adr[2],16)
+                , QString::number((int)mheader->dest_adr[3],16)
+                , QString::number((int)mheader->dest_adr[4],16)
+                , QString::number((int)mheader->dest_adr[5],16)));
     ui->listWidget_detail->addItem(temp);
     temp.clear();
     temp = "类型：";
@@ -182,17 +182,17 @@ void MainWindow::showIP(struct IpHeader *ipheader){
     temp.clear();
 
     temp.append(QString("源 IP: %1.%2.%3.%4")
-                .arg(QString::number((int)ipheader->source_ip[0]))
-                .arg(QString::number((int)ipheader->source_ip[1]))
-                .arg(QString::number((int)ipheader->source_ip[2]))
-                .arg(QString::number((int)ipheader->source_ip[3])));
+                .arg(QString::number((int)ipheader->source_ip[0])
+                , QString::number((int)ipheader->source_ip[1])
+                , QString::number((int)ipheader->source_ip[2])
+                , QString::number((int)ipheader->source_ip[3])));
     ui->listWidget_detail->addItem(temp);
     temp.clear();
     temp.append(QString("目的IP: %1.%2.%3.%4")
-                .arg(QString::number((int)ipheader->dest_ip[0]))
-                .arg(QString::number((int)ipheader->dest_ip[1]))
-                .arg(QString::number((int)ipheader->dest_ip[2]))
-                .arg(QString::number((int)ipheader->dest_ip[3])));
+                .arg(QString::number((int)ipheader->dest_ip[0])
+                , QString::number((int)ipheader->dest_ip[1])
+                , QString::number((int)ipheader->dest_ip[2])
+                , QString::number((int)ipheader->dest_ip[3])));
     ui->listWidget_detail->addItem(temp);
     ui->listWidget_detail->addItem("");
     temp.clear();
@@ -247,12 +247,12 @@ void MainWindow::showTcp(TcpHeader *tcpheader){
     ui->listWidget_detail->addItem(temp);
     temp.clear();
     temp.append(QString("标志位：  URG:%1 ACK:%2 PSH:%3 RET:%4 SYN:%5 FIN:%6")
-                .arg(QString::number((int)(tcpheader->flag>>5)&0x01))
-                .arg(QString::number((int)(tcpheader->flag>>4)&0x01))
-                .arg(QString::number((int)(tcpheader->flag>>3&0x01)))
-                .arg(QString::number((int)(tcpheader->flag>>2)&0x01))
-                .arg(QString::number((int)(tcpheader->flag>>1)&0x01))
-                .arg(QString::number((int)(tcpheader->flag>>0)&0x01)));
+                .arg(QString::number((int)(tcpheader->flag>>5)&0x01)
+                , QString::number((int)(tcpheader->flag>>4)&0x01)
+                , QString::number((int)(tcpheader->flag>>3&0x01))
+                , QString::number((int)(tcpheader->flag>>2)&0x01)
+                , QString::number((int)(tcpheader->flag>>1)&0x01)
+                , QString::number((int)(tcpheader->flag>>0)&0x01)));
     ui->listWidget_detail->addItem(temp);
     temp.clear();
     temp.append(QString("窗口： %1")
