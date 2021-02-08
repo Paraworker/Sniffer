@@ -1,12 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include"initwindow.h"
+#include "initwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow){
+    , ui(new Ui::MainWindow),button_state(0){
     ui->setupUi(this);
-    this->ui->pushButton_pause->setDisabled(true);
     this->ui->tableWidget_list->setVerticalScrollMode(QListWidget::ScrollPerPixel);
     this->ui->listWidget_detail->setVerticalScrollMode(QListWidget::ScrollPerPixel);
     ui->tableWidget_list->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
@@ -55,20 +54,20 @@ void MainWindow::select_interface(){
     this->ui->label_title->setText("Sniffer for " + eth);
 }
 
-//开始
-void MainWindow::on_pushButton_start_clicked(){
-    sniff_thread->startsniff();
-    this->ui->pushButton_start->setDisabled(true);
-    this->ui->pushButton_pause->setEnabled(true);
-    this->ui->label_title->setText("Sniffing...");
-}
+//开始和暂停
+void MainWindow::on_pushButton_start_pause_clicked(){
+    if(button_state == 0){
+        button_state = 1;
+        sniff_thread->startsniff();
+        this->ui->label_title->setText("Sniffing...");
+        this->ui->pushButton_start_pause->setText("暂停");
 
-//停止
-void MainWindow::on_pushButton_pause_clicked(){
-    sniff_thread->pausesniff();
-    this->ui->pushButton_pause->setDisabled(true);
-    this->ui->pushButton_start->setEnabled(true);
-    this->ui->label_title->setText("Paused");
+    }else {
+        button_state = 0;
+        sniff_thread->pausesniff();
+        this->ui->label_title->setText("Paused");
+        this->ui->pushButton_start_pause->setText("开始");
+    }
 }
 
 void MainWindow::on_tableWidget_list_clicked(const QModelIndex &index)

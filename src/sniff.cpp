@@ -38,7 +38,6 @@ void Sniff::run()
            if(ipheader->protocol != filter && filter != ALL) continue;  //检查过滤器
            //数据报完成检查
 
-
            if(i == 0)
                emit listclear();
            bzero(data_list[i], 2048);

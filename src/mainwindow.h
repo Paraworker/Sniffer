@@ -23,8 +23,7 @@ public:
     void select_interface();
 
 private slots:
-    void on_pushButton_start_clicked();
-    void on_pushButton_pause_clicked();
+    void on_pushButton_start_pause_clicked();
     void on_tableWidget_list_clicked(const QModelIndex &index);
     void text_add(QString* s);
     void clear_the_list();
@@ -32,6 +31,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    int button_state;
     Sniff *sniff_thread;
     QString eth;
 };
