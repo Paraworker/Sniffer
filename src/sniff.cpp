@@ -26,7 +26,7 @@ void Sniff::run()
 
     while(! isInterruptionRequested() ){
         if(state == START){
-            bzero(databuf,2048);
+            memset(databuf,0,2048);
             //开始抓包
             recvfrom(sock,databuf,2048,0,NULL,NULL);
             //获当前时间
@@ -40,7 +40,7 @@ void Sniff::run()
 
             if(i == 0)
                 emit listclear();
-            bzero(data_list[i], 2048);
+            memset(data_list[i],0,2048);
             memcpy(data_list[i],databuf,2048);   //数据复制到data_list
             mheader = (struct MacHeader *) data_list[i];
             ipheader = (struct IpHeader *)( data_list[i] + 14);
