@@ -157,7 +157,7 @@ void Sniff::setFilter(int i){
     //设置网卡为混杂模式
 void Sniff::set_promisc(std::string _eth){
     const char* eth_name = _eth.c_str();
-    strcpy(ifr.ifr_name, eth_name);
+    strncpy(ifr.ifr_name, eth_name, sizeof (ifr.ifr_name));
     ioctl(sock, SIOCGIFFLAGS, &ifr);
     ifr.ifr_flags |= IFF_PROMISC;
     ioctl(sock, SIOCSIFFLAGS, &ifr);
