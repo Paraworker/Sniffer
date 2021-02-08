@@ -82,15 +82,17 @@ void Sniff::run()
             //序号 协议类型 源ip 目的ip 时间
             information[0] = QString::number(i+1);
             information[1] = getProtocol(ipheader->protocol);
-            information[2] = QString("%1.%2.%3.%4").arg(QString::number((int)ipheader->source_ip[0]))
-                    .arg(QString::number((int)ipheader->source_ip[1]))
-                    .arg(QString::number((int)ipheader->source_ip[2]))
-                    .arg(QString::number((int)ipheader->source_ip[3]));
+            information[2] = QString("%1.%2.%3.%4")
+                    .arg(QString::number((int)ipheader->source_ip[0])
+                    , QString::number((int)ipheader->source_ip[1])
+                    , QString::number((int)ipheader->source_ip[2])
+                    , QString::number((int)ipheader->source_ip[3]));
 
-            information[3] = QString("%1.%2.%3.%4").arg(QString::number((int)ipheader->dest_ip[0]))
-                    .arg(QString::number((int)ipheader->dest_ip[1]))
-                    .arg(QString::number((int)ipheader->dest_ip[2]))
-                    .arg(QString::number((int)ipheader->dest_ip[3]));
+            information[3] = QString("%1.%2.%3.%4")
+                    .arg(QString::number((int)ipheader->dest_ip[0])
+                    , QString::number((int)ipheader->dest_ip[1])
+                    , QString::number((int)ipheader->dest_ip[2])
+                    , QString::number((int)ipheader->dest_ip[3]));
 
             information[4] = current_date;
 
