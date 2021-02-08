@@ -4,13 +4,11 @@
 
 InitWindow::InitWindow(QWidget *parent) :
     QDialog(parent,Qt::WindowTitleHint | Qt::CustomizeWindowHint),
-    ui(new Ui::InitWindow)
-{
+    ui(new Ui::InitWindow){
     ui->setupUi(this);
 }
 
-InitWindow::~InitWindow()
-{
+InitWindow::~InitWindow(){
     delete ui;
 }
 
@@ -35,7 +33,6 @@ void InitWindow::closeEvent(QCloseEvent *event){
     event->accept();
 }
 
-void InitWindow::on_pushButton_clicked()
-{
+void InitWindow::on_pushButton_clicked(){
     this->close();
 }

@@ -4,7 +4,8 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow),button_state(0){
+    , ui(new Ui::MainWindow)
+    , button_state(0){
     ui->setupUi(this);
     this->ui->tableWidget_list->setVerticalScrollMode(QListWidget::ScrollPerPixel);
     this->ui->listWidget_detail->setVerticalScrollMode(QListWidget::ScrollPerPixel);
@@ -61,7 +62,6 @@ void MainWindow::on_pushButton_start_pause_clicked(){
         sniff_thread->startsniff();
         this->ui->label_title->setText("Sniffing...");
         this->ui->pushButton_start_pause->setText("暂停");
-
     }else {
         button_state = 0;
         sniff_thread->pausesniff();

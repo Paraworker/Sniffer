@@ -2,8 +2,7 @@
 
 
 Sniff::Sniff(QObject *parent) :
-    QThread(parent)
-{
+    QThread(parent){
     sock = -1;
     state = STOP;
     filter = ALL;
@@ -11,98 +10,99 @@ Sniff::Sniff(QObject *parent) :
 
 Sniff::~Sniff(){
     if(this->isRunning()){
-    requestInterruption();
-    wait();
+        requestInterruption();
+        wait();
     }
-    if(sock != -1){
+
+    if(sock != -1)
         close(sock);
-    }
 }
 
 void Sniff::run()
 {
     char databuf[2048];
     QString* information;
-    int i=0;
+    int i = 0;
+
     while(! isInterruptionRequested() ){
         if(state == START){
-           bzero(databuf,2048);
-           //开始抓包
-           recvfrom(sock,databuf,2048,0,NULL,NULL);
-           //获当前时间
-           QDateTime current_date_time = QDateTime::currentDateTime();
-           QString current_date = current_date_time.toString(" hh:mm:ss yyyy-MM-dd");
-           mheader = (struct MacHeader *) databuf;
-           if(mheader->type != 8)   continue;   //判断是否是IP数据报
-           ipheader = (struct IpHeader *)( databuf + 14);
-           if(ipheader->protocol != filter && filter != ALL) continue;  //检查过滤器
-           //数据报完成检查
+            bzero(databuf,2048);
+            //开始抓包
+            recvfrom(sock,databuf,2048,0,NULL,NULL);
+            //获当前时间
+            QDateTime current_date_time = QDateTime::currentDateTime();
+            QString current_date = current_date_time.toString(" hh:mm:ss yyyy-MM-dd");
+            mheader = (struct MacHeader *) databuf;
+            if(mheader->type != 8)   continue;   //判断是否是IP数据报
+            ipheader = (struct IpHeader *)( databuf + 14);
+            if(ipheader->protocol != filter && filter != ALL) continue;  //检查过滤器
+            //数据报完成检查
 
-           if(i == 0)
-               emit listclear();
-           bzero(data_list[i], 2048);
-           memcpy(data_list[i],databuf,2048);   //数据复制到data_list
-           mheader = (struct MacHeader *) data_list[i];
-           ipheader = (struct IpHeader *)( data_list[i] + 14);
+            if(i == 0)
+                emit listclear();
+            bzero(data_list[i], 2048);
+            memcpy(data_list[i],databuf,2048);   //数据复制到data_list
+            mheader = (struct MacHeader *) data_list[i];
+            ipheader = (struct IpHeader *)( data_list[i] + 14);
 
-           //接收双字节的顺序网络序的，需要调整
-           ipheader->tatol_len = (ipheader->tatol_len>>8) + (ipheader->tatol_len<<8);
-           ipheader->ident = (ipheader->ident>>8) + (ipheader->ident<<8);
-           ipheader->flag_frag = (ipheader->flag_frag>>8) + (ipheader->flag_frag<<8);
-           ipheader->check_sum = (ipheader->check_sum>>8) + (ipheader->check_sum<<8);
+            //接收双字节的顺序网络序的，需要调整
+            ipheader->tatol_len = (ipheader->tatol_len>>8) + (ipheader->tatol_len<<8);
+            ipheader->ident = (ipheader->ident>>8) + (ipheader->ident<<8);
+            ipheader->flag_frag = (ipheader->flag_frag>>8) + (ipheader->flag_frag<<8);
+            ipheader->check_sum = (ipheader->check_sum>>8) + (ipheader->check_sum<<8);
 
-           if(ipheader->protocol == ICMP){
-                    struct IcmpHeader *icmpheader = (struct IcmpHeader *)(data_list[i]+14+ipheader->header_len*4);
-                    //接收双字节的网络序的，需要调整
-                    icmpheader->check_sum = (icmpheader->check_sum>>8) + (icmpheader->check_sum<<8);
-                    icmpheader->id = (icmpheader->id>>8) + (icmpheader->id<<8);
-                    icmpheader->seq = (icmpheader->seq>>8) + (icmpheader->seq<<8);
-           } else if(ipheader->protocol == TCP){
-                    struct TcpHeader *tcpheader = (struct TcpHeader *)(data_list[i]+14+ipheader->header_len*4);
-                    //接收双字节的网络序的，需要调整
-                    tcpheader->source_port = (tcpheader->source_port>>8) + (tcpheader->source_port<<8);
-                    tcpheader->dest_port = (tcpheader->dest_port>>8) + (tcpheader->dest_port<<8);
-                    tcpheader->window = (tcpheader->window>>8) + (tcpheader->window<<8);
-                    tcpheader->check_sum = (tcpheader->check_sum>>8) + (tcpheader->check_sum<<8);
-                    tcpheader->send_num = (tcpheader->send_num>>24) + ((tcpheader->send_num>>8)&0x00ff00)
-                                        + ((tcpheader->send_num<<8)&0x00ff0000) + (tcpheader->send_num<<24);
-                    tcpheader->recv_num = (tcpheader->recv_num>>24) + ((tcpheader->recv_num>>8)&0x00ff00)
-                                        + ((tcpheader->recv_num<<8)&0x00ff0000) + (tcpheader->recv_num<<24);
-           }else if(ipheader->protocol == UDP){
-                    struct UdpHeader *udpheader = (struct UdpHeader *)(data_list[i]+14+ipheader->header_len*4);
-                    //接收双字节的是网络序的，需要调整
-                    udpheader->source_port = (udpheader->source_port>>8) + (udpheader->source_port<<8);
-                    udpheader->dest_port = (udpheader->dest_port>>8) + (udpheader->dest_port<<8);
-                    udpheader->len = (udpheader->len>>8) + (udpheader->len<<8);
-                    udpheader->check_sum = (udpheader->check_sum>>8) + (udpheader->check_sum<<8);
-           }
+            if(ipheader->protocol == ICMP){
+                struct IcmpHeader *icmpheader = (struct IcmpHeader *)(data_list[i]+14+ipheader->header_len*4);
+                //接收双字节的网络序的，需要调整
+                icmpheader->check_sum = (icmpheader->check_sum>>8) + (icmpheader->check_sum<<8);
+                icmpheader->id = (icmpheader->id>>8) + (icmpheader->id<<8);
+                icmpheader->seq = (icmpheader->seq>>8) + (icmpheader->seq<<8);
+            } else if(ipheader->protocol == TCP){
+                struct TcpHeader *tcpheader = (struct TcpHeader *)(data_list[i]+14+ipheader->header_len*4);
+                //接收双字节的网络序的，需要调整
+                tcpheader->source_port = (tcpheader->source_port>>8) + (tcpheader->source_port<<8);
+                tcpheader->dest_port = (tcpheader->dest_port>>8) + (tcpheader->dest_port<<8);
+                tcpheader->window = (tcpheader->window>>8) + (tcpheader->window<<8);
+                tcpheader->check_sum = (tcpheader->check_sum>>8) + (tcpheader->check_sum<<8);
+                tcpheader->send_num = (tcpheader->send_num>>24) + ((tcpheader->send_num>>8)&0x00ff00)
+                        + ((tcpheader->send_num<<8)&0x00ff0000) + (tcpheader->send_num<<24);
+                tcpheader->recv_num = (tcpheader->recv_num>>24) + ((tcpheader->recv_num>>8)&0x00ff00)
+                        + ((tcpheader->recv_num<<8)&0x00ff0000) + (tcpheader->recv_num<<24);
+            }else if(ipheader->protocol == UDP){
+                struct UdpHeader *udpheader = (struct UdpHeader *)(data_list[i]+14+ipheader->header_len*4);
+                //接收双字节的是网络序的，需要调整
+                udpheader->source_port = (udpheader->source_port>>8) + (udpheader->source_port<<8);
+                udpheader->dest_port = (udpheader->dest_port>>8) + (udpheader->dest_port<<8);
+                udpheader->len = (udpheader->len>>8) + (udpheader->len<<8);
+                udpheader->check_sum = (udpheader->check_sum>>8) + (udpheader->check_sum<<8);
+            }
 
-           information = new QString[5];
+            information = new QString[5];
 
-           //序号 协议类型 源ip 目的ip 时间
-           information[0] = QString::number(i+1);
-           information[1] = getProtocol(ipheader->protocol);
-           information[2] = QString("%1.%2.%3.%4").arg(QString::number((int)ipheader->source_ip[0]))
-                   .arg(QString::number((int)ipheader->source_ip[1]))
-                   .arg(QString::number((int)ipheader->source_ip[2]))
-                   .arg(QString::number((int)ipheader->source_ip[3]));
+            //序号 协议类型 源ip 目的ip 时间
+            information[0] = QString::number(i+1);
+            information[1] = getProtocol(ipheader->protocol);
+            information[2] = QString("%1.%2.%3.%4").arg(QString::number((int)ipheader->source_ip[0]))
+                    .arg(QString::number((int)ipheader->source_ip[1]))
+                    .arg(QString::number((int)ipheader->source_ip[2]))
+                    .arg(QString::number((int)ipheader->source_ip[3]));
 
-           information[3] = QString("%1.%2.%3.%4").arg(QString::number((int)ipheader->dest_ip[0]))
-                       .arg(QString::number((int)ipheader->dest_ip[1]))
-                       .arg(QString::number((int)ipheader->dest_ip[2]))
-                       .arg(QString::number((int)ipheader->dest_ip[3]));
+            information[3] = QString("%1.%2.%3.%4").arg(QString::number((int)ipheader->dest_ip[0]))
+                    .arg(QString::number((int)ipheader->dest_ip[1]))
+                    .arg(QString::number((int)ipheader->dest_ip[2]))
+                    .arg(QString::number((int)ipheader->dest_ip[3]));
 
-           information[4] = current_date;
+            information[4] = current_date;
 
-           //显示
-           emit newtext(information);
-           i++;
+            //显示
+            emit newtext(information);
+            i++;
 
-           //超最大抓取数，清0
-           if(i >= MAXDATALIST){
-               i = 0;
-           }
-           msleep(50);
+            //超最大抓取数，清0
+            if(i >= MAXDATALIST){
+                i = 0;
+            }
+            msleep(50);
         }
         else {
             sleep(1);
@@ -132,6 +132,7 @@ void Sniff::startsniff(){
         this->start();
     }
 }
+
 //停止抓包
 void Sniff::pausesniff(){
     state = STOP;
@@ -188,9 +189,8 @@ std::vector<QString> Sniff::get_eth_list(){
     getifaddrs(&ifList);
 
     for (ifa = ifList; ifa != NULL; ifa = ifa->ifa_next){
-        if(ifa->ifa_addr->sa_family == PF_PACKET){
+        if(ifa->ifa_addr->sa_family == PF_PACKET)
             s.push_back(ifa->ifa_name);
-        }
     }
     freeifaddrs(ifList);
     return s;
@@ -199,7 +199,7 @@ std::vector<QString> Sniff::get_eth_list(){
 void Sniff::eth_setup(QString s){
     sock = socket(PF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
     timeval tv = {3, 0};
-    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (char*)&tv, sizeof(timeval));        //设置阻塞超时3秒
+    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (char*)&tv, sizeof(timeval));     //设置阻塞超时3秒
     bind_eth(s);
     set_promisc(s);
 }
