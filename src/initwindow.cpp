@@ -29,7 +29,7 @@ void InitWindow::set_pointer(QString *s,Sniff* sn){
 void InitWindow::closeEvent(QCloseEvent *event){
     QString s = this->ui->comboBox->currentText();
     *eth = s;
-    sniff->eth_setup(s);
+    sniff->eth_setup(s.toStdString());
     event->accept();
 }
 

@@ -153,8 +153,8 @@ void Sniff::setFilter(int i){
 }
 
     //设置网卡为混杂模式
-void Sniff::set_promisc(QString _eth){
-    const char* eth_name = _eth.toStdString().c_str();
+void Sniff::set_promisc(std::string _eth){
+    const char* eth_name = _eth.c_str();
     strcpy(ifr.ifr_name, eth_name);
     ioctl(sock, SIOCGIFFLAGS, &ifr);
     ifr.ifr_flags |= IFF_PROMISC;
@@ -162,8 +162,8 @@ void Sniff::set_promisc(QString _eth){
 }
 
     //接口绑定
-void Sniff::bind_eth(QString _eth){
-    const char* eth_name = _eth.toStdString().c_str();
+void Sniff::bind_eth(std::string _eth){
+    const char* eth_name = _eth.c_str();
 
     struct ifreq ifr_re;    // ifreq结构用于获取接口信息
     strncpy(ifr_re.ifr_name, eth_name, IFNAMSIZ);
@@ -196,7 +196,7 @@ std::vector<QString> Sniff::get_eth_list(){
     return s;
 }
 
-void Sniff::eth_setup(QString s){
+void Sniff::eth_setup(std::string s){
     sock = socket(PF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
     timeval tv = {3, 0};
     setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (char*)&tv, sizeof(timeval));     //设置阻塞超时3秒

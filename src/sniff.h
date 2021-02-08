@@ -89,7 +89,7 @@ public:
     void startsniff();
     void pausesniff();
     char data_list[MAXDATALIST][2048];
-    void eth_setup(QString s);
+    void eth_setup(std::string s);
     std::vector<QString> get_eth_list();
     QString getProtocol(int protocol);
 
@@ -109,8 +109,8 @@ private:
     struct IpHeader *ipheader;
     int state;
     int filter;
-    void set_promisc(QString _eth);
-    void bind_eth(QString _eth);
+    void set_promisc(std::string _eth);
+    void bind_eth(std::string _eth);
 
 };
 
