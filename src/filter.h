@@ -11,8 +11,8 @@ public:
     void input_data(char* data);
     bool check_weather_IP();
     bool check_allow_type();
-    void parsing_package(QString* information);
     void adjust_order();
+    void parsing_package(QString* information);
 private:
     char* databuf;
     struct MacHeader *mheader;

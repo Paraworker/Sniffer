@@ -41,8 +41,6 @@ signals:
 private:
     int sock;
     struct ifreq ifr;
-    struct MacHeader *mheader;
-    struct IpHeader *ipheader;
     int state;
     Filter filter;
     void set_promisc(std::string _eth);

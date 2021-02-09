@@ -46,33 +46,10 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="comboBox_filter">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
+         <widget class="QPushButton" name="pushButton_filter">
+          <property name="text">
+           <string>过滤器...</string>
           </property>
-          <item>
-           <property name="text">
-            <string>ALL</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>ICMP</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>TCP</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>UDP</string>
-           </property>
-          </item>
          </widget>
         </item>
         <item>
