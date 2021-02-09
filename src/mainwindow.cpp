@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent)
                                         "border-bottom:1px solid rgb(230,230,230);}");
 
     sniff_thread = new Sniff();
-    connect(this->ui->comboBox_filter,SIGNAL(currentIndexChanged(int)),sniff_thread,SLOT(setFilter(int)));
     connect(sniff_thread,SIGNAL(newtext(QString*)),this,SLOT(text_add(QString*)));
     connect(sniff_thread,SIGNAL(listclear()),this,SLOT(clear_the_list()));
 }
