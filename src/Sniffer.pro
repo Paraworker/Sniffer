@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     filter.cpp \
+    filterwindow.cpp \
     initwindow.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -25,12 +26,14 @@ SOURCES += \
 
 HEADERS += \
     filter.h \
+    filterwindow.h \
     initwindow.h \
     mainwindow.h \
     packet_struct.h \
     sniff.h
 
 FORMS += \
+    filterwindow.ui \
     initwindow.ui \
     mainwindow.ui
 
