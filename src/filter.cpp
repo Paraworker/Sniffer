@@ -115,3 +115,19 @@ void Filter::set_UDP_check(bool arg){
 void Filter::set_others_check(bool arg){
     this->others_check = arg;
 }
+
+bool Filter::get_ICMP_check(){
+    return this->ICMP_check;
+}
+
+bool Filter::get_TCP_check(){
+    return this->TCP_check;
+}
+
+bool Filter::get_UDP_check(){
+    return this->UDP_check;
+}
+
+bool Filter::get_others_check(){
+    return this->others_check;
+}

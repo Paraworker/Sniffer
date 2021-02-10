@@ -33,7 +33,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    FilterWindow filterwindow;
+    FilterWindow* filterwindow;
     int button_state;
     Sniff *sniff_thread;
     QString eth;

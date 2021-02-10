@@ -3,23 +3,26 @@
 
 #include <QDialog>
 #include "filter.h"
+#include <QCloseEvent>
 
 namespace Ui {
 class FilterWindow;
 }
 
-class FilterWindow : public QDialog
-{
+class FilterWindow : public QDialog {
     Q_OBJECT
 
 public:
-    explicit FilterWindow(QWidget *parent = nullptr);
+    explicit FilterWindow(Filter* _filter, QWidget *parent = nullptr);
     ~FilterWindow();
-    void set_pointer(Filter* _filter);
+
+private slots:
+    void on_pushButton_ok_clicked();
 
 private:
     Ui::FilterWindow *ui;
     Filter* filter;
+    void closeEvent( QCloseEvent * event);
 };
 
 #endif // FILTERWINDOW_H

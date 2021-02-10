@@ -51,7 +51,7 @@
       </spacer>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="4,10">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,10">
        <property name="sizeConstraint">
         <enum>QLayout::SetDefaultConstraint</enum>
        </property>
@@ -91,7 +91,7 @@
       </spacer>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="4,10">
+      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,10">
        <item>
         <spacer name="horizontalSpacer_2">
          <property name="orientation">
@@ -128,7 +128,7 @@
       </spacer>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="4,10">
+      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,10">
        <item>
         <spacer name="horizontalSpacer_3">
          <property name="orientation">
@@ -165,7 +165,7 @@
       </spacer>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="4,10">
+      <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="2,10">
        <item>
         <spacer name="horizontalSpacer_4">
          <property name="orientation">

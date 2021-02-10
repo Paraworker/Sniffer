@@ -13,10 +13,16 @@ public:
     bool check_allow_type();
     void adjust_order();
     void parsing_package(QString* information);
+
     void set_TCP_check(bool arg);
     void set_UDP_check(bool arg);
     void set_ICMP_check(bool arg);
     void set_others_check(bool arg);
+
+    bool get_TCP_check();
+    bool get_UDP_check();
+    bool get_ICMP_check();
+    bool get_others_check();
 
 private:
     char* databuf;
