@@ -12,3 +12,7 @@ FilterWindow::~FilterWindow()
 {
     delete ui;
 }
+
+void FilterWindow::set_pointer(Filter *_filter){
+    this->filter = _filter;
+}

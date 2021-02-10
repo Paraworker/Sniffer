@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "sniff.h"
+#include "filterwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,8 +29,11 @@ private slots:
     void clear_the_list();
 
 
+    void on_pushButton_filter_clicked();
+
 private:
     Ui::MainWindow *ui;
+    FilterWindow filterwindow;
     int button_state;
     Sniff *sniff_thread;
     QString eth;

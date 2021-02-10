@@ -33,6 +33,7 @@ public:
     void eth_setup(std::string s);
     std::vector<QString> get_eth_list();
     QString getProtocol(int protocol);
+    Filter* get_filter_address();
 
 signals:
     void listclear();

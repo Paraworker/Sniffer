@@ -137,3 +137,7 @@ void Sniff::eth_setup(std::string s){
     bind_eth(s);
     set_promisc(s);
 }
+
+Filter* Sniff::get_filter_address(){
+    return &filter;
+}

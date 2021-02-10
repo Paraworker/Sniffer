@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
                                         "border-bottom:1px solid rgb(230,230,230);}");
 
     sniff_thread = new Sniff();
+    filterwindow.set_pointer(sniff_thread->get_filter_address());
     connect(sniff_thread,SIGNAL(newtext(QString*)),this,SLOT(text_add(QString*)));
     connect(sniff_thread,SIGNAL(listclear()),this,SLOT(clear_the_list()));
 }
@@ -287,3 +288,8 @@ void MainWindow::showUdp(UdpHeader *udpheader){
 }
 
 
+
+void MainWindow::on_pushButton_filter_clicked()
+{
+    filterwindow.exec();
+}

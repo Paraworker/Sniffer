@@ -100,4 +100,18 @@ QString Filter::getProtocol_name(int protocol){
     return "UNKNOW";
 }
 
+void Filter::set_ICMP_check(bool arg){
+    this->ICMP_check = arg;
+}
 
+void Filter::set_TCP_check(bool arg){
+    this->TCP_check = arg;
+}
+
+void Filter::set_UDP_check(bool arg){
+    this->UDP_check = arg;
+}
+
+void Filter::set_others_check(bool arg){
+    this->others_check = arg;
+}

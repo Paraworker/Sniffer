@@ -13,6 +13,11 @@ public:
     bool check_allow_type();
     void adjust_order();
     void parsing_package(QString* information);
+    void set_TCP_check(bool arg);
+    void set_UDP_check(bool arg);
+    void set_ICMP_check(bool arg);
+    void set_others_check(bool arg);
+
 private:
     char* databuf;
     struct MacHeader *mheader;
