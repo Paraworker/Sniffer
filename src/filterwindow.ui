@@ -27,7 +27,7 @@
        <property name="font">
         <font>
          <family>Noto Sans CJK SC</family>
-         <pointsize>18</pointsize>
+         <pointsize>16</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
