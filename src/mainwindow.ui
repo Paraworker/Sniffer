@@ -24,9 +24,9 @@
     <property name="geometry">
      <rect>
       <x>790</x>
-      <y>50</y>
+      <y>60</y>
       <width>301</width>
-      <height>631</height>
+      <height>621</height>
      </rect>
     </property>
    </widget>
@@ -41,6 +41,27 @@
     </property>
     <property name="orientation">
      <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_packet_detail">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>10</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Noto Sans CJK SC</family>
+      <pointsize>18</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Package detail</string>
     </property>
    </widget>
    <widget class="QWidget" name="">
@@ -110,6 +131,12 @@
       <width>761</width>
       <height>631</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
     </property>
     <property name="editTriggers">
      <set>QAbstractItemView::NoEditTriggers</set>
