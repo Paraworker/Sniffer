@@ -22,7 +22,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QFormLayout" name="formLayout">
     <item row="0" column="0" colspan="2">
-     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="10,5">
+     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="10,5">
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
@@ -162,26 +162,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QLabel" name="label_packet_detail">
-          <property name="font">
-           <font>
-            <family>Noto Sans CJK SC</family>
-            <pointsize>18</pointsize>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Package detail</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QListWidget" name="listWidget_detail"/>
-        </item>
-       </layout>
+       <widget class="QListWidget" name="listWidget_detail"/>
       </item>
      </layout>
     </item>
