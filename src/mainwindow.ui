@@ -76,6 +76,9 @@
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="10,5">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QTableWidget" name="tableWidget_list">
           <property name="font">
