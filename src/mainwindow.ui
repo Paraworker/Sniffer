@@ -24,7 +24,7 @@
     <item row="0" column="0" colspan="2">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout" stretch="10,0,0,0">
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="10,0,0,0,0">
         <item>
          <widget class="QLabel" name="label_title">
           <property name="minimumSize">
@@ -69,6 +69,19 @@
          <widget class="QPushButton" name="pushButton_start_pause">
           <property name="text">
            <string>开始</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_about">
+          <property name="maximumSize">
+           <size>
+            <width>32</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>...</string>
           </property>
          </widget>
         </item>
