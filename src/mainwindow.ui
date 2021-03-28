@@ -22,7 +22,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QFormLayout" name="formLayout">
     <item row="0" column="0" colspan="2">
-     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="10,0,5">
+     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="10,5">
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
@@ -160,13 +160,6 @@
          </widget>
         </item>
        </layout>
-      </item>
-      <item>
-       <widget class="Line" name="line">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-       </widget>
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
