@@ -5,14 +5,14 @@
 #include "packet_struct.h"
 
 
-class Filter{
+class Filter {
 public:
     Filter();
-    void input_data(char* data);
+    void input_data(char *data);
     bool check_weather_IP();
     bool check_allow_type();
     void adjust_order();
-    void parsing_package(QString* information);
+    void parsing_package(QString *information);
 
     void set_TCP_check(bool arg);
     void set_UDP_check(bool arg);
@@ -25,7 +25,7 @@ public:
     bool get_others_check();
 
 private:
-    char* databuf;
+    char *databuf;
     struct MacHeader *mheader;
     struct IpHeader *ipheader;
 

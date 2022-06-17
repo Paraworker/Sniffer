@@ -24,13 +24,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(sniff_thread,SIGNAL(listclear()),this,SLOT(clear_the_list()));
 }
 
-MainWindow::~MainWindow(){
+MainWindow::~MainWindow() {
     delete sniff_thread;
     delete filterwindow;
     delete ui;
 }
 
-void MainWindow::text_add(QString* s){
+void MainWindow::text_add(QString* s) {
     int c = this->ui->tableWidget_list->rowCount();
     this->ui->tableWidget_list->insertRow(c);
     this->ui->tableWidget_list->setItem(c,0,new QTableWidgetItem(s[0]));
@@ -43,12 +43,12 @@ void MainWindow::text_add(QString* s){
 
 }
 
-void MainWindow::clear_the_list(){
+void MainWindow::clear_the_list() {
     ui->tableWidget_list->setRowCount(0);
     ui->tableWidget_list->clearContents();
 }
 
-void MainWindow::select_interface(){
+void MainWindow::select_interface() {
     InitWindow initwindow;
     initwindow.set_pointer(&eth,sniff_thread);
     initwindow.combobox_add(sniff_thread->get_eth_list());
@@ -58,8 +58,8 @@ void MainWindow::select_interface(){
 }
 
 //开始和暂停
-void MainWindow::on_pushButton_start_pause_clicked(){
-    if(button_state == 0){
+void MainWindow::on_pushButton_start_pause_clicked() {
+    if(button_state == 0) {
         button_state = 1;
         sniff_thread->startsniff();
         this->ui->label_title->setText("Sniffing...");
@@ -72,8 +72,7 @@ void MainWindow::on_pushButton_start_pause_clicked(){
     }
 }
 
-void MainWindow::on_tableWidget_list_clicked(const QModelIndex &index)
-{
+void MainWindow::on_tableWidget_list_clicked(const QModelIndex &index) {
     int i = index.row();
     ui->listWidget_detail->clear();
     char *p = sniff_thread->data_list[i];
@@ -101,7 +100,7 @@ void MainWindow::on_tableWidget_list_clicked(const QModelIndex &index)
 
 }
 
-void MainWindow::showMac(MacHeader *mheader){
+void MainWindow::showMac(MacHeader *mheader) {
     QString temp;
     ui->listWidget_detail->addItem("[MAC Header]");
     temp.append(QString("源 MAC 地址: %1-%2-%3-%4-%5-%6")
@@ -129,7 +128,7 @@ void MainWindow::showMac(MacHeader *mheader){
     temp.clear();
 }
 
-void MainWindow::showIP(struct IpHeader *ipheader){
+void MainWindow::showIP(struct IpHeader *ipheader) {
     QString temp;
     ui->listWidget_detail->addItem("[IP Header]");
 
@@ -146,7 +145,6 @@ void MainWindow::showIP(struct IpHeader *ipheader){
                 .arg(QString::number((ipheader->service))));
     ui->listWidget_detail->addItem(temp);
     temp.clear();
-
 
     temp.append(QString("总长度： %1")
                 .arg(QString::number((ipheader->tatol_len))));
@@ -200,7 +198,7 @@ void MainWindow::showIP(struct IpHeader *ipheader){
     temp.clear();
 }
 
-void MainWindow::showIcmp(IcmpHeader *icmpheader){
+void MainWindow::showIcmp(IcmpHeader *icmpheader) {
     QString temp;
     ui->listWidget_detail->addItem("[ICMP Header]");
     temp.append(QString("类型： %1")
@@ -225,7 +223,7 @@ void MainWindow::showIcmp(IcmpHeader *icmpheader){
     temp.clear();
 }
 
-void MainWindow::showTcp(TcpHeader *tcpheader){
+void MainWindow::showTcp(TcpHeader *tcpheader) {
     QString temp;
     ui->listWidget_detail->addItem("[TCP Header]");
     temp.append(QString("源端口： %1")
@@ -267,7 +265,7 @@ void MainWindow::showTcp(TcpHeader *tcpheader){
     temp.clear();
 }
 
-void MainWindow::showUdp(UdpHeader *udpheader){
+void MainWindow::showUdp(UdpHeader *udpheader) {
     QString temp;
     ui->listWidget_detail->addItem("[UDP Header]");
     temp.append(QString("源端口： %1")
@@ -289,7 +287,6 @@ void MainWindow::showUdp(UdpHeader *udpheader){
 
 }
 
-void MainWindow::on_pushButton_filter_clicked()
-{
+void MainWindow::on_pushButton_filter_clicked() {
     filterwindow->exec();
 }

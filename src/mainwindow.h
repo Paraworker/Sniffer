@@ -9,7 +9,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow{
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
@@ -25,7 +25,7 @@ public:
 private slots:
     void on_pushButton_start_pause_clicked();
     void on_tableWidget_list_clicked(const QModelIndex &index);
-    void text_add(QString* s);
+    void text_add(QString *s);
     void clear_the_list();
 
 
@@ -33,9 +33,10 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    FilterWindow* filterwindow;
+    FilterWindow *filterwindow;
     int button_state;
     Sniff *sniff_thread;
     QString eth;
 };
+
 #endif // MAINWINDOW_H

@@ -13,7 +13,7 @@ class FilterWindow : public QDialog {
     Q_OBJECT
 
 public:
-    explicit FilterWindow(Filter* _filter, QWidget *parent = nullptr);
+    explicit FilterWindow(Filter *_filter, QWidget *parent = nullptr);
     ~FilterWindow();
 
 private slots:
@@ -21,8 +21,8 @@ private slots:
 
 private:
     Ui::FilterWindow *ui;
-    Filter* filter;
-    void closeEvent( QCloseEvent * event);
+    Filter *filter;
+    void closeEvent( QCloseEvent *event);
 };
 
 #endif // FILTERWINDOW_H

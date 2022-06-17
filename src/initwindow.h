@@ -9,14 +9,13 @@ namespace Ui {
 class InitWindow;
 }
 
-class InitWindow : public QDialog
-{
+class InitWindow: public QDialog {
     Q_OBJECT
 
 public:
     explicit InitWindow(QWidget *parent = nullptr);
     void combobox_add(std::vector<QString> list);
-    void set_pointer(QString* s,Sniff* sn);
+    void set_pointer(QString *s,Sniff *sn);
     ~InitWindow();
 
 private slots:
@@ -24,9 +23,9 @@ private slots:
 
 private:
     Ui::InitWindow *ui;
-    QString* eth;
-    Sniff* sniff;
-    void closeEvent( QCloseEvent * event);
+    QString *eth;
+    Sniff *sniff;
+    void closeEvent( QCloseEvent *event);
 };
 
 #endif // INITWINDOW_H

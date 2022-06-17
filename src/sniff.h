@@ -21,7 +21,7 @@
 #define MAXDATALIST 2048
 
 
-class Sniff : public QThread{
+class Sniff : public QThread {
     Q_OBJECT
 public:
     explicit Sniff(QObject *parent = 0);
@@ -33,11 +33,11 @@ public:
     void eth_setup(std::string s);
     std::vector<QString> get_eth_list();
     QString getProtocol(int protocol);
-    Filter* get_filter_address();
+    Filter *get_filter_address();
 
 signals:
     void listclear();
-    void newtext(QString* s);
+    void newtext(QString *s);
 
 private:
     int sock;
