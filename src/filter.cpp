@@ -15,27 +15,22 @@ void Filter::input_data(char *data) {
 bool Filter::check_weather_IP() {
     if(mheader->type == 8) {
         return true;
-    }else {
-        return false;
     }
+
+    return false;
 }
 
 bool Filter::check_allow_type() {
-    if(ipheader->protocol == TCP) {
-        if(TCP_check)
-            return true;
-    }else if (ipheader->protocol == UDP) {
-        if(UDP_check)
-            return true;
-    }else if (ipheader->protocol == ICMP) {
-        if(ICMP_check)
-            return true;
-    }else {
-        if(others_check)
-            return true;
+    switch (ipheader->protocol) {
+        case TCP:
+            return TCP_check;
+        case UDP:
+            return UDP_check;
+        case ICMP:
+            return ICMP_check;
+        default:
+            return others_check;
     }
-    
-    return false;
 }
 
 /* 接收双字节的顺序网络序的，需要调整 */
@@ -94,15 +89,13 @@ QString Filter::getProtocol_name(int protocol) {
     switch(protocol) {
         case ICMP:
             return "ICMP";
-            break;
         case TCP:
             return "TCP";
-            break;
         case UDP:
             return "UDP";
+        default:
+            return "UNKNOW";
     }
-
-    return "UNKNOW";
 }
 
 void Filter::set_ICMP_check(bool arg) {
