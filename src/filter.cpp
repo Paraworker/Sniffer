@@ -7,9 +7,9 @@ Filter::Filter()
     , m_othersCheck(true) {}
 
 void Filter::inputData(char *data) {
-    this->m_databuf = data;
-    m_macHeader = (struct MacHeader *)m_databuf;
-    m_ipHeader = (struct IpHeader *)(m_databuf + 14);
+    m_databuf   = data;
+    m_macHeader = (struct MacHeader*)m_databuf;
+    m_ipHeader  = (struct IpHeader*)(m_databuf + 14);
 }
 
 bool Filter::isIP() {
