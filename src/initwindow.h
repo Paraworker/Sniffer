@@ -14,18 +14,21 @@ class InitWindow: public QDialog {
 
 public:
     explicit InitWindow(QWidget *parent = nullptr);
-    void combobox_add(std::vector<QString> list);
-    void set_pointer(QString *s,Sniff *sn);
     ~InitWindow();
+
+    void combobox_add(std::vector<QString> const& list);
+    void set_pointer(QString *s,Sniff *sn);
 
 private slots:
     void on_pushButton_clicked();
 
 private:
-    Ui::InitWindow *ui;
-    QString *eth;
-    Sniff *sniff;
     void closeEvent( QCloseEvent *event);
+
+private:
+    Ui::InitWindow *ui;
+    QString        *eth;
+    Sniff          *sniff;
 };
 
 #endif // INITWINDOW_H

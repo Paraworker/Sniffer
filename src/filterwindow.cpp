@@ -6,10 +6,10 @@ FilterWindow::FilterWindow(Filter *_filter, QWidget *parent)
     , ui(new Ui::FilterWindow) {
     ui->setupUi(this);
     this->filter = _filter;
-    this->ui->checkBox_ICMP->setChecked(filter->get_ICMP_check());
-    this->ui->checkBox_TCP->setChecked(filter->get_TCP_check());
-    this->ui->checkBox_UDP->setChecked(filter->get_UDP_check());
-    this->ui->checkBox_others->setChecked(filter->get_others_check());
+    this->ui->checkBox_ICMP->setChecked(filter->isIcmpAllowed());
+    this->ui->checkBox_TCP->setChecked(filter->isTcpAllowed());
+    this->ui->checkBox_UDP->setChecked(filter->isUdpAllowed());
+    this->ui->checkBox_others->setChecked(filter->isOthersAllowed());
 }
 
 FilterWindow::~FilterWindow() {
@@ -21,9 +21,9 @@ void FilterWindow::on_pushButton_ok_clicked() {
 }
 
 void FilterWindow::closeEvent( QCloseEvent * event) {
-    filter->set_ICMP_check(this->ui->checkBox_ICMP->isChecked());
-    filter->set_TCP_check(this->ui->checkBox_TCP->isChecked());
-    filter->set_UDP_check(this->ui->checkBox_UDP->isChecked());
-    filter->set_others_check(this->ui->checkBox_others->isChecked());
+    filter->setAllowIcmp(this->ui->checkBox_ICMP->isChecked());
+    filter->setAllowTcp(this->ui->checkBox_TCP->isChecked());
+    filter->setAllowUdp(this->ui->checkBox_UDP->isChecked());
+    filter->setAllowOthers(this->ui->checkBox_others->isChecked());
     event->accept();
 }

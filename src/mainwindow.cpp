@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
                                         "border-bottom:1px solid rgb(230,230,230);}");
 
     sniff_thread = new Sniff();
-    filterwindow = new FilterWindow(sniff_thread->get_filter_address());
+    filterwindow = new FilterWindow(sniff_thread->getFilterAddress());
 
     connect(sniff_thread,SIGNAL(newtext(QString*)),this,SLOT(text_add(QString*)));
     connect(sniff_thread,SIGNAL(listclear()),this,SLOT(clear_the_list()));
@@ -51,8 +51,13 @@ void MainWindow::clear_the_list() {
 void MainWindow::select_interface() {
     InitWindow initwindow;
     initwindow.set_pointer(&eth,sniff_thread);
-    initwindow.combobox_add(sniff_thread->get_eth_list());
+
+    std::vector<QString> ethList;
+    sniff_thread->getEthList(ethList);
+
+    initwindow.combobox_add(ethList);
     initwindow.exec();
+
     this->setWindowTitle("Sniffer for " + eth);
     this->ui->label_title->setText("Sniffer for " + eth);
 }
@@ -61,12 +66,12 @@ void MainWindow::select_interface() {
 void MainWindow::on_pushButton_start_pause_clicked() {
     if(button_state == 0) {
         button_state = 1;
-        sniff_thread->startsniff();
+        sniff_thread->startSniff();
         this->ui->label_title->setText("Sniffing...");
         this->ui->pushButton_start_pause->setText("暂停");
     }else {
         button_state = 0;
-        sniff_thread->pausesniff();
+        sniff_thread->pauseSniff();
         this->ui->label_title->setText("Paused");
         this->ui->pushButton_start_pause->setText("开始");
     }
@@ -75,7 +80,7 @@ void MainWindow::on_pushButton_start_pause_clicked() {
 void MainWindow::on_tableWidget_list_clicked(const QModelIndex &index) {
     int i = index.row();
     ui->listWidget_detail->clear();
-    char *p = sniff_thread->data_list[i];
+    char *p = sniff_thread->dataList[i];
     this->ui->listWidget_detail->addItem(QString("No.%1 (%2)")
                                          .arg(this->ui->tableWidget_list->item(i,0)->text()
                                          , this->ui->tableWidget_list->item(i,4)->text()));

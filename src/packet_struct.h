@@ -2,13 +2,13 @@
 #define PACKET_STRUCT_H
 
 enum Protocol{
-    ALL = 0,
+    ALL  = 0,
     ICMP = 1,
     IGMP = 2,
-    IP = 4,
-    TCP = 6,
-    UDP = 17,
-    };
+    IP   = 4,
+    TCP  = 6,
+    UDP  = 17,
+};
 
 
 // MAC帧头结构

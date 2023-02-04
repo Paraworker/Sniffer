@@ -12,12 +12,9 @@ InitWindow::~InitWindow() {
     delete ui;
 }
 
-void InitWindow::combobox_add(std::vector<QString> list) {
-    std::vector<QString>::iterator itr1,itr2;
-    itr1 = list.begin();
-    itr2 = list.end();
-    for (; itr1 != itr2; itr1++) {
-        this->ui->comboBox->addItem(*itr1);
+void InitWindow::combobox_add(std::vector<QString> const& list) {
+    for (auto& i : list) {
+        this->ui->comboBox->addItem(i);
     }
 }
 
@@ -29,7 +26,7 @@ void InitWindow::set_pointer(QString *s,Sniff *sn) {
 void InitWindow::closeEvent(QCloseEvent *event) {
     QString s = this->ui->comboBox->currentText();
     *eth = s;
-    sniff->eth_setup(s.toStdString());
+    sniff->ethSetup(s.toStdString());
     event->accept();
 }
 

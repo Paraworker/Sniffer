@@ -8,34 +8,34 @@
 class Filter {
 public:
     Filter();
-    void input_data(char *data);
-    bool check_weather_IP();
-    bool check_allow_type();
-    void adjust_order();
-    void parsing_package(QString *information);
+    void inputData(char *data);
+    bool isIP();
+    bool isAllowed();
+    void adjustOrder();
+    void parsePackage(QString *information);
 
-    void set_TCP_check(bool arg);
-    void set_UDP_check(bool arg);
-    void set_ICMP_check(bool arg);
-    void set_others_check(bool arg);
+    void setAllowTcp(bool allow);
+    void setAllowUdp(bool allow);
+    void setAllowIcmp(bool allow);
+    void setAllowOthers(bool allow);
 
-    bool get_TCP_check();
-    bool get_UDP_check();
-    bool get_ICMP_check();
-    bool get_others_check();
+    bool isTcpAllowed();
+    bool isUdpAllowed();
+    bool isIcmpAllowed();
+    bool isOthersAllowed();
 
 private:
-    char *databuf;
-    struct MacHeader *mheader;
-    struct IpHeader *ipheader;
+    QString getProtocolName(int protocol);
 
-    bool TCP_check;
-    bool UDP_check;
-    bool ICMP_check;
-    bool others_check;
+private:
+    char*      m_databuf;
+    MacHeader* m_macHeader;
+    IpHeader*  m_ipHeader;
 
-    QString getProtocol_name(int protocol);
-
+    bool       m_tcpCheck;
+    bool       m_udpCheck;
+    bool       m_icmpCheck;
+    bool       m_othersCheck;
 };
 
 #endif // FILTER_H

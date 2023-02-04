@@ -2,9 +2,6 @@
 #define SNIFF_H
 
 #include <QThread>
-#include <QtWidgets/QListWidget>
-#include <QLabel>
-#include <QDateTime>
 #include <sys/socket.h>
 #include <linux/if_ether.h>
 #include <sys/ioctl.h>
@@ -16,36 +13,65 @@
 #include <netpacket/packet.h>
 #include "filter.h"
 
-#define START 1
-#define STOP  0
-#define MAXDATALIST 2048
-
+#define DATALIST_MAX_NUM 2048
 
 class Sniff : public QThread {
     Q_OBJECT
+
+public:
+    enum State {
+        STOP,
+        RUNNING,
+    };
+
 public:
     explicit Sniff(QObject *parent = 0);
     ~Sniff();
+
     void run();
-    void startsniff();
-    void pausesniff();
-    char data_list[MAXDATALIST][2048];
-    void eth_setup(std::string s);
-    std::vector<QString> get_eth_list();
+
+    /**
+     * @brief 开始抓包
+     */
+    void startSniff();
+
+    /**
+     * @brief 停止抓包
+     */
+    void pauseSniff();
+
+    char dataList[DATALIST_MAX_NUM][2048];
+
+    void ethSetup(std::string s);
+
+    /**
+     * @brief 获取接口列表
+     */
+    void getEthList(std::vector<QString>& ethList);
+
     QString getProtocol(int protocol);
-    Filter *get_filter_address();
+
+    Filter *getFilterAddress();
 
 signals:
     void listclear();
     void newtext(QString *s);
 
 private:
-    int sock;
-    struct ifreq ifr;
-    int state;
-    Filter filter;
-    void set_promisc(std::string _eth);
-    void bind_eth(std::string _eth);
+    /**
+     * @brief 设置网卡为混杂模式
+     */
+    void setPromisc(std::string _eth);
+
+    /**
+     * @brief 接口绑定
+     */
+    void bindEth(std::string _eth);
+
+private:
+    int    m_sock;
+    State  m_state;
+    Filter m_filter;
 };
 
 #endif // SNIFF_H
